@@ -1,2 +1,2 @@
 ## Nomnom
-Reciepe sharing made simple
+Reciepe sharing made simple!
