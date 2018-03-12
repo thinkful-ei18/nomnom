@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const noteSchema = new mongoose.Schema({
+const recipeSchema = new mongoose.Schema({
   title: { type: String, index: true },
   img: String,
   ingredients: [{ type: String }],
@@ -12,9 +12,9 @@ const noteSchema = new mongoose.Schema({
   created: { type: Date, default: Date.now }
 });
 
-noteSchema.index({ title: 'text' });
+recipeSchema.index({ title: 'text' });
 
-noteSchema.set('toObject', {
+recipeSchema.set('toObject', {
   transform: function(doc, ret) {
     ret.id = ret._id;
     delete ret._id;
@@ -22,6 +22,6 @@ noteSchema.set('toObject', {
   }
 });
 
-const Note = mongoose.model('Note', noteSchema);
+const Recipe = mongoose.model('Recipe', recipeSchema);
 
-module.exports = Note;
+module.exports = Recipe;

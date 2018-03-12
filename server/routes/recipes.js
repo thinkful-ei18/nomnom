@@ -3,27 +3,27 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Folder = require('../models/folder');
-const Note = require('../models/note');
+const Recipe = require('../models/recipe');
 
-/* ========== GET/READ ALL ITEM ========== */
-router.get('/folders', (req, res, next) => {
+/* ========== GET all recipes ========== */
+
+router.get('/Recipes', (req, res, next) => {
   const userId = req.user.id;
   let filter = { userId };
   let projection = {};
   let sort = 'created'; // default sorting
 
-  Folder.find(filter, projection)
+  Recipe.find(filter, projection)
     .select('name id userId')
     .sort(sort)
-    .then(folders => {
-      res.json(folders);
+    .then(Recipes => {
+      res.json(Recipes);
     })
     .catch(next);
 });
 
 /* ========== GET/READ A SINGLE ITEM ========== */
-router.get('/folders/:id', (req, res, next) => {
+router.get('/Recipes/:id', (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
@@ -33,11 +33,11 @@ router.get('/folders/:id', (req, res, next) => {
     return next(err);
   }
 
-  Folder.findOne({ _id: id, userId })
+  Recipe.findOne({ _id: id, userId })
     .select('name id userId')
-    .then(folders => {
-      if (folders) {
-        res.json(folders);
+    .then(Recipes => {
+      if (Recipes) {
+        res.json(Recipes);
       } else {
         const err = new Error(`${req.params.id} is not a valid ID`);
         err.status = 404;
@@ -48,7 +48,7 @@ router.get('/folders/:id', (req, res, next) => {
 });
 
 /* ========== POST/CREATE AN ITEM ========== */
-router.post('/folders', (req, res, next) => {
+router.post('/Recipes', (req, res, next) => {
   //Check if required fields present
   const requiredFields = ['name'];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -60,19 +60,19 @@ router.post('/folders', (req, res, next) => {
     }
   }
 
-  Folder.create({
+  Recipe.create({
     name: req.body.name,
     userId: req.user.id
   })
-    .then(folder =>
+    .then(Recipe =>
       res
         .status(201)
-        .location(`${req.originalUrl}${folder.id}`)
-        .json(folder)
+        .location(`${req.originalUrl}${Recipe.id}`)
+        .json(Recipe)
     )
     .catch(err => {
       if (err.code === 11000) {
-        err = new Error('The folder name already exists');
+        err = new Error('The Recipe name already exists');
         err.status = 400;
       }
       next(err);
@@ -80,7 +80,7 @@ router.post('/folders', (req, res, next) => {
 });
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
-router.put('/folders/:id', (req, res, next) => {
+router.put('/Recipes/:id', (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
@@ -105,11 +105,11 @@ router.put('/folders/:id', (req, res, next) => {
     name: req.body.name
   };
 
-  Folder.findOneAndUpdate({ _id: id, userId }, toUpdate, { new: true })
-    .then(folder => res.json(folder))
+  Recipe.findOneAndUpdate({ _id: id, userId }, toUpdate, { new: true })
+    .then(Recipe => res.json(Recipe))
     .catch(err => {
       if (err.code === 11000) {
-        err = new Error('The folder name already exists');
+        err = new Error('The Recipe name already exists');
         err.status = 400;
       }
       next(err);
@@ -117,27 +117,27 @@ router.put('/folders/:id', (req, res, next) => {
 });
 
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
-router.delete('/folders/:id', (req, res, next) => {
-  // // THIS SETS NOTE FOLDERID TO NULL
-  //   Folder
+router.delete('/Recipes/:id', (req, res, next) => {
+  // // THIS SETS NOTE RecipeID TO NULL
+  //   Recipe
   //     .findByIdAndRemove(req.params.id)
   //     .then(() => {
   //       return  Note
-  //         .update({ folderId: req.params.id }, { $set: { folderId: null } }, {multi: true});
+  //         .update({ RecipeId: req.params.id }, { $set: { RecipeId: null } }, {multi: true});
   //     })
   //     .then(() => res.status(204).end())
   //     .catch(next);
 
-  Note.find({ folderId: req.params.id, userId: req.user.id })
+  Note.find({ RecipeId: req.params.id, userId: req.user.id })
     .then(res => {
       if (res.length > 0) {
-        const err = new Error('Folder is being used by other notes');
+        const err = new Error('Recipe is being used by other notes');
         err.status = 400;
         return next(err);
       }
     })
     .then(() => {
-      return Folder.findByIdAndRemove(req.params.id);
+      return Recipe.findByIdAndRemove(req.params.id);
     })
     .then(() => res.status(204).end())
     .catch(next);
