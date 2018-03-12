@@ -1,7 +1,10 @@
 import {
   FETCH_RECIPE_ERROR,
   FETCH_RECIPE_REQUEST,
-  FETCH_RECIPE_SUCCESS
+  FETCH_RECIPE_SUCCESS,
+  POST_RECIPE_ERROR,
+  POST_RECIPE_SUCCESS,
+  POST_RECIPE_REQUEST
 } from '../actions/recipe_actions';
 
 const intialState = {
@@ -24,6 +27,22 @@ const recipe = (state = intialState, action) => {
         recipes: action.recipes
       };
     case FETCH_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    case POST_RECIPE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case POST_RECIPE_SUCCESS:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.recipe],
+        loading: false
+      };
+    case POST_RECIPE_ERROR:
       return {
         ...state,
         error: action.error

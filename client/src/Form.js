@@ -22,28 +22,6 @@ export class Form extends React.Component {
       cookTime: parseInt(values.cook, 10)
     };
     this.props.dispatch(postRecipe(obj));
-
-    //   title: { type: String, index: true },
-    // img: { type: String },
-    // ingredients: [{ type: String }],
-    // instructions: [{ type: String }],
-    // prepTime: { type: Number },
-    // cookTime: { type: Number },
-    // return fetch(
-    //   'https://us-central1-delivery-form-api.cloudfunctions.net/api/report',
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/JSON'
-    //     },
-    //     body: JSON.stringify(values)
-    //   }
-    // )
-    //   .then(res => {
-    //     console.log(res);
-    //     this.setState({ ok: res.ok, failure: res.ok });
-    //   })
-    //   .catch(err => console.log(err));
   }
 
   render() {

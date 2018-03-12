@@ -58,10 +58,10 @@ export const postRecipe = recipe => {
       },
       body: JSON.stringify(recipe)
     })
+      .then(res => res.json())
       .then(res => {
-        console.log(res);
+        dispatch(postRecipeSuccess(res));
       })
-      .then(() => dispatch(fetchRecipe()))
-      .catch(err => console.log(err));
+      .catch(err => dispatch(postRecipeError(err)));
   };
 };
