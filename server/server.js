@@ -1,24 +1,22 @@
 'use strict';
 
-require('dotenv').config();
-
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
-
 const mongoose = require('mongoose');
 
-const { PORT, MONGODB_URI, CLIENT_ORIGIN } = require('./config');
+const passport = require('passport');
+const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
-// CORS ACCESS
-app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
-);
-
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 const recipesRouter = require('./routes/recipes');
+
+const { PORT, MONGODB_URI, CLIENT_ORIGIN, JWT_SECRET } = require('./config');
 
 // Log all requests. Skip logging during
 app.use(
@@ -27,11 +25,25 @@ app.use(
   })
 );
 
+// CORS ACCESS
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+);
+
 // Create a static webserver
 app.use(express.static('public'));
 
 // Parse request body
 app.use(express.json());
+
+// Mount router on "/api"
+app.use('/api', usersRouter);
+app.use('/api', authRouter);
+
+// Endpoints below this require a valid JWT
+app.use(passport.authenticate('jwt', { session: false, failWithError: true }));
 
 // Mount router on "/api"
 app.use('/api', recipesRouter);

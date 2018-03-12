@@ -8,9 +8,10 @@ const Recipe = require('../models/recipe');
 /* ========== GET all recipes ========== */
 
 router.get('/recipes', (req, res, next) => {
+  let filter = { userId: req.user.id };
   let sort = 'created'; // default sorting
 
-  Recipe.find()
+  Recipe.find(filter)
     .select()
     .sort(sort)
     .then(Recipes => {

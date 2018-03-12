@@ -9,7 +9,12 @@ const recipeSchema = new mongoose.Schema({
   directions: [{ type: String }],
   prepTime: { type: Number },
   cookTime: { type: Number },
-  created: { type: Date, default: Date.now }
+  created: { type: Date, default: Date.now },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 });
 
 recipeSchema.index({ title: 'text' });
