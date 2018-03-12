@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema({
   title: { type: String, index: true },
-  img: { type: String },
+  image: { type: String },
   ingredients: [{ type: String }],
-  instructions: [{ type: String }],
+  directions: [{ type: String }],
   prepTime: { type: Number },
   cookTime: { type: Number },
   created: { type: Date, default: Date.now }

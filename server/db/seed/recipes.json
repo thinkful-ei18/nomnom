@@ -2,72 +2,72 @@
   {
     "_id": "000000000000000000000000",
     "title": "Pie 1",
-    "img": "Apple Pie",
+    "image": "Apple Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000001",
     "title": "Pie 2",
-    "img": "Peach Pie",
+    "image": "Peach Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000002",
     "title": "Pie 3",
-    "img": "Pumpkin Pie",
+    "image": "Pumpkin Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000003",
     "title": "Pie 4",
-    "img": "Pecan Pie",
+    "image": "Pecan Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000004",
     "title": "Pie 5",
-    "img": "Pecan Apple Pie",
+    "image": "Pecan Apple Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000005",
     "title": "Pie 6",
-    "img": "Peach Pumpkin Pie",
+    "image": "Peach Pumpkin Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000006",
     "title": "Pie 7",
-    "img": "Pecan Pumpkin Pie",
+    "image": "Pecan Pumpkin Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   },
   {
     "_id": "000000000000000000000007",
     "title": "Pie 8",
-    "img": "Butternut Squash Pie",
+    "image": "Butternut Squash Pie",
     "ingredients":[],
-    "instructions":[],
+    "directions":[],
     "prepTime": 10,
     "cookTime": 20
   }

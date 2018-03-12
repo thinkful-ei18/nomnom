@@ -47,18 +47,18 @@ router.get('/recipes/:id', (req, res, next) => {
 router.post('/recipes', (req, res, next) => {
   const {
     title,
-    img,
+    image,
     ingredients,
-    instructions,
+    directions,
     prepTime,
     cookTime
   } = req.body;
   //Check if required fields present
   const requiredFields = [
     'title',
-    'img',
+    'image',
     'ingredients',
-    'instructions',
+    'directions',
     'prepTime',
     'cookTime'
   ];
@@ -71,7 +71,7 @@ router.post('/recipes', (req, res, next) => {
     }
   }
 
-  let obj = { title, img, ingredients, instructions, prepTime, cookTime };
+  let obj = { title, image, ingredients, directions, prepTime, cookTime };
 
   Recipe.create(obj)
     .then(Recipe =>

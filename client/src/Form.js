@@ -11,7 +11,21 @@ export class Form extends React.Component {
   };
 
   onSubmit(values) {
-    console.log(values);
+    console.log({
+      title: values.title,
+      image: values.image,
+      ingredients: values.ingredients.split('\n').filter(val => val !== ''),
+      directions: values.directions.split('\n').filter(val => val !== ''),
+      prepTime: parseInt(values.prep, 10),
+      cookTime: parseInt(values.cook, 10)
+    });
+
+    //   title: { type: String, index: true },
+    // img: { type: String },
+    // ingredients: [{ type: String }],
+    // instructions: [{ type: String }],
+    // prepTime: { type: Number },
+    // cookTime: { type: Number },
     // return fetch(
     //   'https://us-central1-delivery-form-api.cloudfunctions.net/api/report',
     //   {
@@ -30,24 +44,13 @@ export class Form extends React.Component {
   }
 
   render() {
-    let succeed = this.state.ok ? (
-      <div>
-        <h1>Success!</h1>
-      </div>
-    ) : null;
-    let failure = !this.state.failure ? (
-      <div>
-        {' '}
-        <h1>Delivery not found!</h1>{' '}
-      </div>
-    ) : null;
     return (
       <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
         <h2>Create a new recipe</h2>
         <label>Recipe name</label>
         <Field component="input" type="text" name="title" />
         <label>Image URL</label>
-        <Field component="input" type="text" name="img" />
+        <Field component="input" type="text" name="image" />
         <label>Ingredients</label>
         <span>Seperate ingredients with newline (shift + enter)</span>
         <Field component="textarea" rows="4" cols="50" name="ingredients" />
@@ -59,8 +62,6 @@ export class Form extends React.Component {
         <label>Cook time</label>
         <Field component="input" type="number" name="cook" />
         <input type="submit" />
-        {succeed}
-        {failure}
       </form>
     );
   }
