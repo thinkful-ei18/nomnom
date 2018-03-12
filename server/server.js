@@ -3,17 +3,15 @@
 require('dotenv').config();
 
 const express = require('express');
-// Create an Express application
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 
 const { PORT, MONGODB_URI, CLIENT_ORIGIN } = require('./config');
 
-//CORS ACCESS
+// CORS ACCESS
 app.use(
   cors({
     origin: CLIENT_ORIGIN

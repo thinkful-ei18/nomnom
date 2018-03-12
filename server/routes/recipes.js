@@ -22,7 +22,6 @@ router.get('/recipes', (req, res, next) => {
 /* ========== GET/READ A SINGLE ITEM ========== */
 router.get('/recipes/:id', (req, res, next) => {
   const { id } = req.params;
-  const userId = req.user.id;
 
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     const err = new Error(`${req.params.id} is not a valid ID`);
@@ -30,8 +29,8 @@ router.get('/recipes/:id', (req, res, next) => {
     return next(err);
   }
 
-  Recipe.findOne({ _id: id, userId })
-    .select('name id userId')
+  Recipe.findOne({ _id: id })
+    .select()
     .then(Recipes => {
       if (Recipes) {
         res.json(Recipes);
@@ -44,10 +43,25 @@ router.get('/recipes/:id', (req, res, next) => {
     .catch(next);
 });
 
-/* ========== POST/CREATE AN ITEM ========== */
-router.post('/Recipes', (req, res, next) => {
+/* ========== POST/CREATE A RECIPE ========== */
+router.post('/recipes', (req, res, next) => {
+  const {
+    title,
+    img,
+    ingredients,
+    instructions,
+    prepTime,
+    cookTime
+  } = req.body;
   //Check if required fields present
-  const requiredFields = ['name'];
+  const requiredFields = [
+    'title',
+    'img',
+    'ingredients',
+    'instructions',
+    'prepTime',
+    'cookTime'
+  ];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -57,23 +71,16 @@ router.post('/Recipes', (req, res, next) => {
     }
   }
 
-  Recipe.create({
-    name: req.body.name,
-    userId: req.user.id
-  })
+  let obj = { title, img, ingredients, instructions, prepTime, cookTime };
+
+  Recipe.create(obj)
     .then(Recipe =>
       res
         .status(201)
         .location(`${req.originalUrl}${Recipe.id}`)
         .json(Recipe)
     )
-    .catch(err => {
-      if (err.code === 11000) {
-        err = new Error('The Recipe name already exists');
-        err.status = 400;
-      }
-      next(err);
-    });
+    .catch(next);
 });
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
