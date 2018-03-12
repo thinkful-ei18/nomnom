@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Form from './Form';
 import { fetchRecipe } from './actions/recipe_actions';
 import './App.css';
 
@@ -10,8 +11,11 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props);
-    return <div className="App">somestuff</div>;
+    return (
+      <div className="App">
+        <Form />
+      </div>
+    );
   }
 }
 
