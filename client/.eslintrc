@@ -1,0 +1,18 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "eqeqeq": "error", //prefer strict equality `===`
+    "no-console": "warn", //allows but warn about console like `console.log()`
+    "no-unused-vars": "warn", //warns about unused variables
+    "no-eval": "error", //disallows `eval()` usage
+    "quotes": ["warn", "single"], //prefer single quotes over double quotes
+    "semi": ["error", "always"], //enforce semi-colon usage
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ]
+  }
+}

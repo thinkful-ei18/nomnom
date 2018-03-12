@@ -3,17 +3,24 @@
 require('dotenv').config();
 
 const express = require('express');
+// Create an Express application
 const app = express();
 const morgan = require('morgan');
+const cors = require('cors');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const { PORT, MONGODB_URI } = require('./config');
+const { PORT, MONGODB_URI, CLIENT_ORIGIN } = require('./config');
+
+//CORS ACCESS
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+);
 
 const recipesRouter = require('./routes/recipes');
-
-// Create an Express application
 
 // Log all requests. Skip logging during
 app.use(
@@ -29,7 +36,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // Mount router on "/api"
-app.use('/v3', recipesRouter);
+app.use('/api', recipesRouter);
 
 // Catch-all 404
 app.use(function(req, res, next) {
