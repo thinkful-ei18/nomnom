@@ -7,14 +7,11 @@ const Recipe = require('../models/recipe');
 
 /* ========== GET all recipes ========== */
 
-router.get('/Recipes', (req, res, next) => {
-  const userId = req.user.id;
-  let filter = { userId };
-  let projection = {};
+router.get('/recipes', (req, res, next) => {
   let sort = 'created'; // default sorting
 
-  Recipe.find(filter, projection)
-    .select('name id userId')
+  Recipe.find()
+    .select()
     .sort(sort)
     .then(Recipes => {
       res.json(Recipes);

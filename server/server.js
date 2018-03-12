@@ -29,8 +29,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // Mount router on "/api"
-app.use('/v3', usersRouter);
-app.use('/v3', authRouter);
+app.use('/v3', recipesRouter);
 
 // Catch-all 404
 app.use(function(req, res, next) {
