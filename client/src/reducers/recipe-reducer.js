@@ -10,7 +10,7 @@ const intialState = {
   error: null
 };
 
-const user = (state = intialState, action) => {
+const recipe = (state = intialState, action) => {
   switch (action.type) {
     case FETCH_RECIPE_REQUEST:
       return {
@@ -33,4 +33,4 @@ const user = (state = intialState, action) => {
   }
 };
 
-export default user;
+export default recipe;

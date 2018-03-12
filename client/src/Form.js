@@ -1,6 +1,8 @@
 import React from 'react';
-import './Form.css';
 import { Field, reduxForm } from 'redux-form';
+
+import { postRecipe } from './actions/recipe_actions';
+import './Form.css';
 // import { required, notEmpty, requiredLength, isNumber } from './validators';
 // import Input from './input';
 
@@ -11,14 +13,15 @@ export class Form extends React.Component {
   };
 
   onSubmit(values) {
-    console.log({
+    let obj = {
       title: values.title,
       image: values.image,
       ingredients: values.ingredients.split('\n').filter(val => val !== ''),
       directions: values.directions.split('\n').filter(val => val !== ''),
       prepTime: parseInt(values.prep, 10),
       cookTime: parseInt(values.cook, 10)
-    });
+    };
+    this.props.dispatch(postRecipe(obj));
 
     //   title: { type: String, index: true },
     // img: { type: String },
