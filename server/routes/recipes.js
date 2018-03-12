@@ -20,7 +20,7 @@ router.get('/recipes', (req, res, next) => {
 });
 
 /* ========== GET/READ A SINGLE ITEM ========== */
-router.get('/Recipes/:id', (req, res, next) => {
+router.get('/recipes/:id', (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
