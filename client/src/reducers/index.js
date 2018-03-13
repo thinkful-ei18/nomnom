@@ -4,13 +4,6 @@ import userReducer from './user_reducer';
 import loginReducer from './login_reducer';
 import { reducer as formReducer } from 'redux-form';
 
-// const rootReducer = combineReducers({
-//   recipes: recipeReducer,
-//   login: loginReducer,
-//   form: formReducer,
-//   user: userReducer
-// });
-
 export const appReducer = combineReducers({
   recipes: recipeReducer,
   login: loginReducer,

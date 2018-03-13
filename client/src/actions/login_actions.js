@@ -33,7 +33,13 @@ export const postLogin = credentials => {
         dispatch(postLoginSuccess(res));
         return res;
       })
-      .then(res => dispatch(fetchRecipe(res.authToken)))
+      .then(res => {
+        dispatch(fetchRecipe(res.authToken));
+        return res.authToken;
+      })
+      .then(res => {
+        localStorage.setItem('nomnom_token', res);
+      })
       .catch(err => dispatch(postLoginError(err)));
   };
 };

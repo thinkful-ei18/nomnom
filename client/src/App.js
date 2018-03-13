@@ -10,13 +10,9 @@ import './App.css';
 import { userLogout } from './actions/user_actions';
 
 class App extends Component {
-  // componentDidMount() {
-  //   this.props.dispatch(fetchRecipe());
-  // }
-
   logoutHandler() {
     this.props.dispatch(userLogout());
-    // localStorage.removeItem('nomnom_access_token');
+    localStorage.removeItem('nomnom_token');
   }
 
   render() {
