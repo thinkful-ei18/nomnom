@@ -1,29 +1,29 @@
 import {
-  POST_LOGIN_ERROR,
-  POST_LOGIN_SUCCESS,
-  POST_LOGIN_REQUEST
-} from '../actions/login_actions';
+  POST_USER_ERROR,
+  POST_USER_SUCCESS,
+  POST_USER_REQUEST
+} from '../actions/user_actions';
 
 const intialState = {
-  jwt: null,
+  info: null,
   loading: false,
   error: null
 };
 
-const login = (state = intialState, action) => {
+const user = (state = intialState, action) => {
   switch (action.type) {
-    case POST_LOGIN_REQUEST:
+    case POST_USER_REQUEST:
       return {
         ...state,
         loading: true
       };
-    case POST_LOGIN_SUCCESS:
+    case POST_USER_SUCCESS:
       return {
         ...state,
         loading: false,
-        jwt: action.jwt.authToken
+        info: action.user
       };
-    case POST_LOGIN_ERROR:
+    case POST_USER_ERROR:
       return {
         ...state,
         error: action.error
@@ -33,4 +33,4 @@ const login = (state = intialState, action) => {
   }
 };
 
-export default login;
+export default user;

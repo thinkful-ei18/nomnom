@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // import Form from './Form';
-import SignUp from './SignIn';
+import SignIn from './SignIn';
 import Dashboard from './Dashboard';
 // import { fetchRecipe } from './actions/recipe_actions';
 import './App.css';
@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SignUp />
+        <SignIn />
         <Dashboard />
       </div>
     );
