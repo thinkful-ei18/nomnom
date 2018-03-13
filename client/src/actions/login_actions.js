@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '../config';
+import { fetchRecipe } from './recipe_actions';
 
 export const POST_LOGIN_REQUEST = 'POST_LOGIN_REQUEST';
 export const postLoginRequest = () => ({
@@ -30,7 +31,9 @@ export const postLogin = credentials => {
       .then(res => res.json())
       .then(res => {
         dispatch(postLoginSuccess(res));
+        return res;
       })
+      .then(res => dispatch(fetchRecipe(res.authToken)))
       .catch(err => dispatch(postLoginError(err)));
   };
 };

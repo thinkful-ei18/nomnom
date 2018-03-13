@@ -21,7 +21,7 @@ const jwt = (state = intialState, action) => {
       return {
         ...state,
         loading: false,
-        jwt: action.jwt
+        jwt: action.jwt.authToken
       };
     case POST_LOGIN_ERROR:
       return {
