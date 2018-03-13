@@ -18,6 +18,11 @@ export const postUserError = error => ({
   error
 });
 
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const userLogout = () => ({
+  type: USER_LOGOUT
+});
+
 export const postUser = user => {
   return dispatch => {
     dispatch(postUserRequest());
