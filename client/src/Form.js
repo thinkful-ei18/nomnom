@@ -12,7 +12,7 @@ export class Form extends React.Component {
     failure: true
   };
 
-  onSubmit(values) {
+  createRecipe(values) {
     let obj = {
       title: values.title,
       image: values.image,
@@ -25,8 +25,11 @@ export class Form extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
-      <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+      <form
+        onSubmit={this.props.handleSubmit(values => this.createRecipe(values))}
+      >
         <h2>Create a new recipe</h2>
         <label>Recipe name</label>
         <Field component="input" type="text" name="title" />

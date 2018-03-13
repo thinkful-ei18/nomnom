@@ -23,7 +23,6 @@ router.get('/recipes', (req, res, next) => {
 /* ========== GET/READ A SINGLE ITEM ========== */
 router.get('/recipes/:id', (req, res, next) => {
   const { id } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     const err = new Error(`${req.params.id} is not a valid ID`);
     err.status = 400;
@@ -46,6 +45,7 @@ router.get('/recipes/:id', (req, res, next) => {
 
 /* ========== POST/CREATE A RECIPE ========== */
 router.post('/recipes', (req, res, next) => {
+  const userId = req.user.id;
   const {
     title,
     image,
@@ -72,7 +72,15 @@ router.post('/recipes', (req, res, next) => {
     }
   }
 
-  let obj = { title, image, ingredients, directions, prepTime, cookTime };
+  let obj = {
+    title,
+    image,
+    ingredients,
+    directions,
+    prepTime,
+    cookTime,
+    userId
+  };
 
   Recipe.create(obj)
     .then(Recipe =>

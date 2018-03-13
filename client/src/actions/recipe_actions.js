@@ -19,10 +19,14 @@ export const fetchRecipeError = error => ({
   error
 });
 
-export const fetchRecipe = () => {
+export const fetchRecipe = auth => {
   return dispatch => {
     dispatch(fetchRecipeRequest());
-    fetch(`${API_BASE_URL}/recipes`)
+    fetch(`${API_BASE_URL}/recipes`, {
+      headers: {
+        Authorization: `Bearer ${auth}`
+      }
+    })
       .then(res => res.json())
       .then(recipes => dispatch(fetchRecipeSuccess(recipes)))
       .catch(err => dispatch(fetchRecipeError(err)));
@@ -54,6 +58,8 @@ export const postRecipe = recipe => {
     fetch(`${API_BASE_URL}/recipes`, {
       method: 'POST',
       headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiQWxpIiwiaWQiOiI1YWE2ZTY4OGNkMjE5MDc0NzJhMTUwMmYifSwiaWF0IjoxNTIwODg4Mzk5LCJleHAiOjE1MjE0OTMxOTksInN1YiI6IkFsaSJ9.1G-2AM4DuD7yAls_qWUh3FtNzC9GcmqLS6gW_nKG_EQ',
         'Content-Type': 'application/JSON'
       },
       body: JSON.stringify(recipe)
