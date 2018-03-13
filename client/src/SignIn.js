@@ -1,10 +1,11 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import Login from './Login';
 import NewUser from './NewUser';
 import './SignIn.css';
 
-export default function SignUp() {
+export function SignUp(props) {
+  console.log(props.jwt);
   return (
     <main>
       <NewUser />
@@ -12,3 +13,9 @@ export default function SignUp() {
     </main>
   );
 }
+
+const mapStateToProps = state => ({
+  jwt: state.login.jwt
+});
+
+export default connect(mapStateToProps)(SignUp);

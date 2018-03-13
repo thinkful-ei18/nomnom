@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-// import Form from './Form';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import SignIn from './SignIn';
-import Dashboard from './Dashboard';
+// import Dashboard from './Dashboard';
 import LoginLogout from './LoginLogout';
-// import { fetchRecipe } from './actions/recipe_actions';
+
 import './App.css';
-import { userLogout } from './actions/user_actions';
 
 class App extends Component {
-  logoutHandler() {
-    this.props.dispatch(userLogout());
-    localStorage.removeItem('nomnom_token');
-  }
-
   render() {
     return (
-      <div className="App">
-        <LoginLogout logout={() => this.logoutHandler()} />
-        <SignIn />
-        <Dashboard />
-      </div>
+      <Router>
+        <div className="App">
+          <nav>
+            <Link to="/signin">SignUp/SignIn</Link>
+            <LoginLogout />
+          </nav>
+          <Route
+            exact
+            path="/signin"
+            jwt={this.props.auth}
+            component={SignIn}
+          />
+          {/* <Dashboard /> */}
+        </div>
+      </Router>
     );
   }
 }

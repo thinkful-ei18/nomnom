@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { postLogin } from './actions/login_actions';
 import './Login.css';
-
+import { connect } from 'react-redux';
 export class Login extends React.Component {
   login(values) {
     let obj = {
@@ -25,6 +25,11 @@ export class Login extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  jwt: state.login.jwt
+});
+
+Login = connect(mapStateToProps)(Login);
 
 export default reduxForm({
   form: 'login'
