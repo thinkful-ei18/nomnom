@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Login from './Login';
 import NewUser from './NewUser';
 import './SignIn.css';
 
 export function SignUp(props) {
-  console.log(props.jwt);
+  if (props.jwt) {
+    props.history.push('/dashboard');
+  }
   return (
     <main>
       <NewUser />
@@ -17,5 +20,7 @@ export function SignUp(props) {
 const mapStateToProps = state => ({
   jwt: state.login.jwt
 });
+
+SignUp = withRouter(SignUp);
 
 export default connect(mapStateToProps)(SignUp);

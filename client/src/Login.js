@@ -1,9 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 import { postLogin } from './actions/login_actions';
 import './Login.css';
-import { connect } from 'react-redux';
 export class Login extends React.Component {
   login(values) {
     let obj = {
@@ -12,6 +12,7 @@ export class Login extends React.Component {
     };
     this.props.dispatch(postLogin(obj));
   }
+
   render() {
     return (
       <form onSubmit={this.props.handleSubmit(values => this.login(values))}>

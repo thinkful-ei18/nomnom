@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 import SignIn from './SignIn';
-// import Dashboard from './Dashboard';
+import Dashboard from './Dashboard';
 import LoginLogout from './LoginLogout';
+import CreateRecipe from './CreateRecipe';
 
 import './App.css';
 
@@ -16,13 +22,9 @@ class App extends Component {
             <Link to="/signin">SignUp/SignIn</Link>
             <LoginLogout />
           </nav>
-          <Route
-            exact
-            path="/signin"
-            jwt={this.props.auth}
-            component={SignIn}
-          />
-          {/* <Dashboard /> */}
+          <Route path="/signin" component={SignIn} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/create" component={CreateRecipe} />
         </div>
       </Router>
     );
