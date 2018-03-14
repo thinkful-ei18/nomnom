@@ -20,6 +20,21 @@ router.get('/recipes', (req, res, next) => {
     .catch(next);
 });
 
+/* ========== GET all recipes from specific user ========== */
+
+router.get('/recipes/user/:username', (req, res, next) => {
+  let filter = { username: req.params.username };
+  let sort = 'created'; // default sorting
+
+  Recipe.find(filter)
+    .select()
+    .sort(sort)
+    .then(Recipes => {
+      res.json(Recipes);
+    })
+    .catch(next);
+});
+
 /* ========== GET/READ A SINGLE ITEM ========== */
 router.get('/recipes/:id', (req, res, next) => {
   const { id } = req.params;
@@ -46,6 +61,7 @@ router.get('/recipes/:id', (req, res, next) => {
 /* ========== POST/CREATE A RECIPE ========== */
 router.post('/recipes', (req, res, next) => {
   const userId = req.user.id;
+  const username = req.user.username;
   const {
     title,
     image,
@@ -79,7 +95,8 @@ router.post('/recipes', (req, res, next) => {
     directions,
     prepTime,
     cookTime,
-    userId
+    userId,
+    username
   };
 
   Recipe.create(obj)
