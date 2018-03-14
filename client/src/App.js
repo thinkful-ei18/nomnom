@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Username from './Username';
 import SignIn from './SignIn';
 import Dashboard from './Dashboard';
 import LoginLogout from './LoginLogout';
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path="/signin" component={SignIn} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/create" component={CreateRecipe} />
+          <Route exact path="/:username" component={Username} />
         </div>
       </Router>
     );
