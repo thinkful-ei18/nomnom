@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { postRecipe } from './actions/recipe_actions';
 import './CreateRecipe.css';
 // import { required, notEmpty, requiredLength, isNumber } from './validators';
@@ -16,10 +17,13 @@ export class CreateRecipe extends React.Component {
       prepTime: parseInt(values.prep, 10),
       cookTime: parseInt(values.cook, 10)
     };
-    this.props.dispatch(postRecipe(obj, this.props.auth));
+    this.props.dispatch(postRecipe(obj, this.props.jwt));
   }
 
   render() {
+    if (!this.props.jwt) {
+      this.props.history.push('/');
+    }
     return (
       <form
         onSubmit={this.props.handleSubmit(values => this.createRecipe(values))}
@@ -46,10 +50,12 @@ export class CreateRecipe extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.login.jwt
+  jwt: state.login.jwt
 });
 
 CreateRecipe = connect(mapStateToProps)(CreateRecipe);
+
+CreateRecipe = withRouter(CreateRecipe);
 
 export default reduxForm({
   form: 'deliveryForm'
