@@ -15,6 +15,7 @@ class App extends Component {
         <div className="App">
           <nav>
             <Link to="/signin">SignUp/SignIn</Link>
+            <Link to="/dashboard">Dashboard</Link>
             <LoginLogout />
           </nav>
           <Route path="/signin" component={SignIn} />
