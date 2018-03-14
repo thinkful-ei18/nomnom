@@ -4,26 +4,6 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import './Dashboard.css';
 
-// {
-//         "ingredients": [
-//             "1",
-//             "2",
-//             "3"
-//         ],
-//         "directions": [
-//             "1",
-//             "2",
-//             "3"
-//         ],
-//         "created": "2018-03-13T15:57:18.244Z",
-//         "title": "State Pie",
-//         "image": "image",
-//         "prepTime": 10,
-//         "cookTime": 10,
-//         "userId": "5aa6e688cd21907472a1502f",
-//         "id": "5aa7f4deba550a83c29c37b4"
-//     }
-
 export function Dashboard(props) {
   if (!props.jwt) {
     props.history.push('/');
@@ -31,7 +11,7 @@ export function Dashboard(props) {
   let displayRecipes = props.recipes.map(recipe => (
     <div className="recipe" key={recipe.id}>
       <span className="recipe-title">{recipe.title}</span>
-      <span>{recipe.image}</span>
+      <img src={recipe.image} alt="apple pie" width="200" />
       <span>Prep time: {recipe.prepTime} </span>
       <span>Cook time: {recipe.cookTime} </span>
       <span>Ingredients</span>
