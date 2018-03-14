@@ -22,7 +22,7 @@ class App extends Component {
           <Route path="/signin" component={SignIn} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/create" component={CreateRecipe} />
-          <Route exact path="/:username" component={Username} />
+          <Route exact path="/profile/:username" component={Username} />
         </div>
       </Router>
     );

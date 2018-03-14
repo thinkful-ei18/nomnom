@@ -29,7 +29,7 @@ export class CreateRecipe extends React.Component {
     }
 
     return (
-      <form // onSubmit={this.props.handleSubmit(values => this.createRecipe(values))}
+      <form
         onSubmit={this.props.handleSubmit(values => {
           this.createRecipe(values);
           this.props.history.push('/dashboard');
