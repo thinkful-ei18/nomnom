@@ -19,14 +19,21 @@ export class CreateRecipe extends React.Component {
     };
     this.props.dispatch(postRecipe(obj, this.props.jwt));
   }
+  redirectDashboard() {
+    this.props.history.push('/dashboard');
+  }
 
   render() {
     if (!this.props.jwt) {
       this.props.history.push('/');
     }
+
     return (
-      <form
-        onSubmit={this.props.handleSubmit(values => this.createRecipe(values))}
+      <form // onSubmit={this.props.handleSubmit(values => this.createRecipe(values))}
+        onSubmit={this.props.handleSubmit(values => {
+          this.createRecipe(values);
+          this.props.history.push('/dashboard');
+        })}
       >
         <h2>Create a new recipe</h2>
         <label>Recipe name</label>
