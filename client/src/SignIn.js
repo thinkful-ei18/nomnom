@@ -18,7 +18,7 @@ export function SignUp(props) {
 }
 
 const mapStateToProps = state => ({
-  jwt: state.login.jwt
+  jwt: window.localStorage.nomnom_token
 });
 
 SignUp = withRouter(SignUp);

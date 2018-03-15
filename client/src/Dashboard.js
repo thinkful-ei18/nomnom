@@ -30,6 +30,7 @@ export function Dashboard(props) {
           </span>
         ))}
       </p>
+      <Link to={`/recipe/${recipe.id}`}>Direct Link</Link>
     </div>
   ));
   return (
@@ -41,7 +42,7 @@ export function Dashboard(props) {
 }
 
 const mapStateToProps = state => ({
-  jwt: state.login.jwt,
+  jwt: window.localStorage.nomnom_token,
   recipes: state.recipes.recipes
 });
 

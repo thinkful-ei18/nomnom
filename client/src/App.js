@@ -6,7 +6,7 @@ import SignIn from './SignIn';
 import Dashboard from './Dashboard';
 import LoginLogout from './LoginLogout';
 import CreateRecipe from './CreateRecipe';
-
+import SingleRecipe from './SingleRecipe';
 import './App.css';
 
 class App extends Component {
@@ -23,6 +23,7 @@ class App extends Component {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/create" component={CreateRecipe} />
           <Route exact path="/profile/:username" component={Username} />
+          <Route exact path="/recipe/:id" component={SingleRecipe} />
         </div>
       </Router>
     );

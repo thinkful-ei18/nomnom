@@ -57,7 +57,7 @@ export class CreateRecipe extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  jwt: state.login.jwt
+  jwt: window.localStorage.nomnom_token
 });
 
 CreateRecipe = connect(mapStateToProps)(CreateRecipe);
