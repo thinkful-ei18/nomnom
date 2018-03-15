@@ -109,12 +109,14 @@ router.put('/Recipes/:id', (req, res, next) => {
 });
 
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
-router.delete('/Recipes/:id', (req, res, next) => {
-  let id = req.params.id;
+router.delete('/recipes/:id', (req, res, next) => {
+  let _id = req.params.id;
   let userId = req.user.id;
 
-  Recipe.findOneAndDelete({ userId, id })
-    .then(() => res.status(204).end())
+  Recipe.findOne({ _id, userId })
+    .then(() => {
+      Recipe.findByIdAndRemove(req.params.id).then(() => res.status(204).end());
+    })
     .catch(next);
 });
 
