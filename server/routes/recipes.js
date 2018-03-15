@@ -108,14 +108,18 @@ router.put('/Recipes/:id', (req, res, next) => {
     });
 });
 
-/* ========== DELETE/REMOVE A SINGLE ITEM ========== */
+/* ========== DELETE/REMOVE A SINGLE RECIPE ========== */
 router.delete('/recipes/:id', (req, res, next) => {
   let _id = req.params.id;
   let userId = req.user.id;
 
   Recipe.findOne({ _id, userId })
-    .then(() => {
-      Recipe.findByIdAndRemove(req.params.id).then(() => res.status(204).end());
+    .then(res => {
+      if (res) {
+        Recipe.findByIdAndRemove(req.params.id).then(() =>
+          res.status(204).end()
+        );
+      }
     })
     .catch(next);
 });
