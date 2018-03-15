@@ -3,11 +3,17 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { postRecipe } from './actions/recipe_actions';
+import { jwtFetch } from './actions/login_actions';
 import './CreateRecipe.css';
 // import { required, notEmpty, requiredLength, isNumber } from './validators';
 // import Input from './input';
 
 export class CreateRecipe extends React.Component {
+  componentDidMount() {
+    if (this.props.jwt && this.props.recipes.length < 1) {
+      this.props.dispatch(jwtFetch(this.props.jwt));
+    }
+  }
   createRecipe(values) {
     let obj = {
       title: values.title,
@@ -57,7 +63,8 @@ export class CreateRecipe extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  jwt: window.localStorage.nomnom_token
+  jwt: window.localStorage.nomnom_token,
+  recipes: state.recipes.recipes
 });
 
 CreateRecipe = connect(mapStateToProps)(CreateRecipe);

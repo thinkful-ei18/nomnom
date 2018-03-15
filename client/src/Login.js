@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { postLogin } from './actions/login_actions';
 import './Login.css';
+
 export class Login extends React.Component {
   login(values) {
     let obj = {

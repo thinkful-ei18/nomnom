@@ -43,3 +43,9 @@ export const postLogin = credentials => {
       .catch(err => dispatch(postLoginError(err)));
   };
 };
+
+export const jwtFetch = jwt => {
+  return dispatch => {
+    dispatch(fetchRecipe(jwt));
+  };
+};
