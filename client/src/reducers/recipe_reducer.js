@@ -4,7 +4,10 @@ import {
   FETCH_RECIPE_SUCCESS,
   POST_RECIPE_ERROR,
   POST_RECIPE_SUCCESS,
-  POST_RECIPE_REQUEST
+  POST_RECIPE_REQUEST,
+  DELETE_RECIPE_ERROR,
+  DELETE_RECIPE_SUCCESS,
+  DELETE_RECIPE_REQUEST
 } from '../actions/recipe_actions';
 
 const intialState = {
@@ -43,6 +46,22 @@ const recipe = (state = intialState, action) => {
         loading: false
       };
     case POST_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    case DELETE_RECIPE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case DELETE_RECIPE_SUCCESS:
+      return {
+        ...state,
+        recipes: state.recipes.filter(recipe => recipe.id !== action.id),
+        loading: false
+      };
+    case DELETE_RECIPE_ERROR:
       return {
         ...state,
         error: action.error

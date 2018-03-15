@@ -114,10 +114,10 @@ router.delete('/recipes/:id', (req, res, next) => {
   let userId = req.user.id;
 
   Recipe.findOne({ _id, userId })
-    .then(res => {
-      if (res) {
-        Recipe.findByIdAndRemove(req.params.id).then(() =>
-          res.status(204).end()
+    .then(doc => {
+      if (doc) {
+        return Recipe.findByIdAndRemove(req.params.id).then(() =>
+          res.sendStatus(204).end()
         );
       }
     })

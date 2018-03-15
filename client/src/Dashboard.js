@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { jwtFetch } from './actions/login_actions';
+import DeleteButton from './DeleteButton';
 import './Dashboard.css';
 
 export class Dashboard extends React.Component {
@@ -39,6 +40,7 @@ export class Dashboard extends React.Component {
           ))}
         </p>
         <Link to={`/recipe/${recipe.id}`}>Direct Link</Link>
+        <DeleteButton id={recipe.id} />
       </div>
     ));
 

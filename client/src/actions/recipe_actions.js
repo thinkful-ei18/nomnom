@@ -71,3 +71,41 @@ export const postRecipe = (recipe, auth) => {
       .catch(err => dispatch(postRecipeError(err)));
   };
 };
+
+/* ========== Delete Recipe ========== */
+
+export const DELETE_RECIPE_REQUEST = 'DELETE_RECIPE_REQUEST';
+export const deleteRecipeRequest = () => ({
+  type: DELETE_RECIPE_REQUEST
+});
+
+export const DELETE_RECIPE_SUCCESS = 'DELETE_RECIPE_SUCCESS';
+export const deleteRecipeSuccess = id => ({
+  type: DELETE_RECIPE_SUCCESS,
+  id
+});
+
+export const DELETE_RECIPE_ERROR = 'DELETE_RECIPE_ERROR';
+export const deleteRecipeError = error => ({
+  type: DELETE_RECIPE_ERROR,
+  error
+});
+
+export const deleteRecipe = (id, auth) => {
+  return dispatch => {
+    dispatch(deleteRecipeRequest());
+    fetch(`${API_BASE_URL}/recipes/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${auth}`
+      }
+    })
+      .then(res => res.statusText)
+      .then(() => {
+        dispatch(deleteRecipeSuccess(id));
+      })
+      .catch(err => {
+        dispatch(deleteRecipeError(err));
+      });
+  };
+};
