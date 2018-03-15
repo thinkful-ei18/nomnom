@@ -19,14 +19,10 @@ export const fetchProfileError = error => ({
   error
 });
 
-export const fetchProfile = (auth, username) => {
+export const fetchProfile = username => {
   return dispatch => {
     dispatch(fetchProfileRequest());
-    fetch(`${API_BASE_URL}/recipes/user/${username}`, {
-      headers: {
-        Authorization: `Bearer ${auth}`
-      }
-    })
+    fetch(`${API_BASE_URL}/recipes/user/${username}`)
       .then(res => res.json())
       .then(profile => dispatch(fetchProfileSuccess(profile)))
       .then()

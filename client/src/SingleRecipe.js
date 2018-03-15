@@ -6,9 +6,7 @@ import './SingleRecipe.css';
 
 export class SingleRecipe extends React.Component {
   componentDidMount() {
-    this.props.dispatch(
-      fetchSingleRecipe(this.props.jwt, this.props.match.params.id)
-    );
+    this.props.dispatch(fetchSingleRecipe(this.props.match.params.id));
   }
   render() {
     return (
@@ -18,8 +16,5 @@ export class SingleRecipe extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  jwt: window.localStorage.nomnom_token
-});
 
-export default connect(mapStateToProps)(SingleRecipe);
+export default connect()(SingleRecipe);

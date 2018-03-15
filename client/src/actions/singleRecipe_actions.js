@@ -19,14 +19,10 @@ export const recipeError = error => ({
   error
 });
 
-export const fetchSingleRecipe = (auth, id) => {
+export const fetchSingleRecipe = id => {
   return dispatch => {
     dispatch(recipeRequest());
-    fetch(`${API_BASE_URL}/recipes/${id}`, {
-      headers: {
-        Authorization: `Bearer ${auth}`
-      }
-    })
+    fetch(`${API_BASE_URL}/recipes/${id}`)
       .then(res => res.json())
       .then(recipes => dispatch(recipeSuccess(recipes)))
       .then()

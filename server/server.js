@@ -15,6 +15,7 @@ passport.use(jwtStrategy);
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const recipesRouter = require('./routes/recipes');
+const publicRecipesRouter = require('./routes/public_recipes');
 
 const { PORT, MONGODB_URI, CLIENT_ORIGIN, JWT_SECRET } = require('./config');
 
@@ -38,14 +39,13 @@ app.use(express.static('public'));
 // Parse request body
 app.use(express.json());
 
-// Mount router on "/api"
 app.use('/api', usersRouter);
 app.use('/api', authRouter);
+app.use('/api', publicRecipesRouter);
 
 // Endpoints below this require a valid JWT
 app.use(passport.authenticate('jwt', { session: false, failWithError: true }));
 
-// Mount router on "/api"
 app.use('/api', recipesRouter);
 
 // Catch-all 404

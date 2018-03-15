@@ -20,44 +20,6 @@ router.get('/recipes', (req, res, next) => {
     .catch(next);
 });
 
-/* ========== GET all recipes from specific user ========== */
-
-router.get('/recipes/user/:username', (req, res, next) => {
-  let filter = { username: req.params.username };
-  let sort = 'created'; // default sorting
-
-  Recipe.find(filter)
-    .select()
-    .sort(sort)
-    .then(Recipes => {
-      res.json(Recipes);
-    })
-    .catch(next);
-});
-
-/* ========== GET/READ A SINGLE ITEM ========== */
-router.get('/recipes/:id', (req, res, next) => {
-  const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    const err = new Error(`${req.params.id} is not a valid ID`);
-    err.status = 400;
-    return next(err);
-  }
-
-  Recipe.findOne({ _id: id })
-    .select()
-    .then(Recipes => {
-      if (Recipes) {
-        res.json(Recipes);
-      } else {
-        const err = new Error(`${req.params.id} is not a valid ID`);
-        err.status = 404;
-        return next(err);
-      }
-    })
-    .catch(next);
-});
-
 /* ========== POST/CREATE A RECIPE ========== */
 router.post('/recipes', (req, res, next) => {
   const userId = req.user.id;
@@ -148,27 +110,10 @@ router.put('/Recipes/:id', (req, res, next) => {
 
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
 router.delete('/Recipes/:id', (req, res, next) => {
-  // // THIS SETS NOTE RecipeID TO NULL
-  //   Recipe
-  //     .findByIdAndRemove(req.params.id)
-  //     .then(() => {
-  //       return  Note
-  //         .update({ RecipeId: req.params.id }, { $set: { RecipeId: null } }, {multi: true});
-  //     })
-  //     .then(() => res.status(204).end())
-  //     .catch(next);
+  let id = req.params.id;
+  let userId = req.user.id;
 
-  Note.find({ RecipeId: req.params.id, userId: req.user.id })
-    .then(res => {
-      if (res.length > 0) {
-        const err = new Error('Recipe is being used by other notes');
-        err.status = 400;
-        return next(err);
-      }
-    })
-    .then(() => {
-      return Recipe.findByIdAndRemove(req.params.id);
-    })
+  Recipe.findOneAndDelete({ userId, id })
     .then(() => res.status(204).end())
     .catch(next);
 });

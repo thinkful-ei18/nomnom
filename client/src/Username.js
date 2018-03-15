@@ -6,9 +6,7 @@ import './Username.css';
 
 export class Profile extends React.Component {
   componentDidMount() {
-    this.props.dispatch(
-      fetchProfile(this.props.jwt, this.props.match.params.username)
-    );
+    this.props.dispatch(fetchProfile(this.props.match.params.username));
   }
   render() {
     return (
