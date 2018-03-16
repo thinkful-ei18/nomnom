@@ -61,7 +61,9 @@ const recipe = (state = intialState, action) => {
     case PUT_RECIPE_SUCCESS:
       return {
         ...state,
-        recipes: [...state.recipes, action.recipe],
+        recipes: state.recipes.map(
+          recipe => (recipe.id === action.id ? action : recipe)
+        ),
         loading: false
       };
     case PUT_RECIPE_ERROR:

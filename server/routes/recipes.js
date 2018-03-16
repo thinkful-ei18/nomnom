@@ -72,7 +72,7 @@ router.post('/recipes', (req, res, next) => {
 });
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
-router.put('/Recipes/:id', (req, res, next) => {
+router.put('/recipes/:id', (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
@@ -88,17 +88,15 @@ router.put('/Recipes/:id', (req, res, next) => {
     return next(err);
   }
 
-  if (!req.body.name) {
+  if (!req.body.title) {
     const err = new Error('Name must be present in body');
     err.status = 400;
     return next(err);
   }
-  const toUpdate = {
-    name: req.body.name
-  };
+  const toUpdate = req.body;
 
   Recipe.findOneAndUpdate({ _id: id, userId }, toUpdate, { new: true })
-    .then(Recipe => res.json(Recipe))
+    .then(recipe => res.json(recipe))
     .catch(err => {
       if (err.code === 11000) {
         err = new Error('The Recipe name already exists');

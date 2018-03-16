@@ -20,23 +20,25 @@ export class CreateRecipe extends React.Component {
       ingredients: values.ingredients.split('\n').filter(val => val !== ''),
       directions: values.directions.split('\n').filter(val => val !== ''),
       prepTime: parseInt(values.prepTime, 10),
-      cookTime: parseInt(values.cookTime, 10)
+      cookTime: parseInt(values.cookTime, 10),
+      id: this.props.id
     };
-    this.props.dispatch(putRecipe(this.props.id, obj, this.props.jwt));
-  }
-  redirectDashboard() {
-    this.props.history.push('/dashboard');
+    console.log(JSON.stringify(obj));
+    // this.props.dispatch(putRecipe(this.props.id, obj, this.props.jwt));
   }
 
   render() {
     if (!this.props.jwt) {
       return <Redirect to="/signin" />;
     }
+    if (!this.props.id) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <form
         onSubmit={this.props.handleSubmit(values => {
           this.createRecipe(values);
-          this.props.history.push('/dashboard');
+          // this.props.history.push('/dashboard');
         })}
       >
         <h2>Edit Recipe</h2>
@@ -61,7 +63,6 @@ export class CreateRecipe extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.recipes.recipes[0]);
   return {
     jwt: window.localStorage.nomnom_token,
     recipes: state.recipes.recipes,
