@@ -5,17 +5,19 @@ import { withRouter } from 'react-router';
 import { userLogout } from './actions/user_actions';
 import './LoginLogout.css';
 
-export function LoginLogout(props) {
-  return (
-    <button
-      onClick={() => {
-        props.dispatch(userLogout());
-        props.history.push('/');
-      }}
-    >
-      Logout
-    </button>
-  );
+export class LoginLogout extends React.Component {
+  render() {
+    return (
+      <button
+        onClick={() => {
+          this.props.dispatch(userLogout());
+          this.props.history.push('/signin');
+        }}
+      >
+        Logout
+      </button>
+    );
+  }
 }
 
 LoginLogout = withRouter(LoginLogout);

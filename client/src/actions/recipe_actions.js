@@ -72,6 +72,44 @@ export const postRecipe = (recipe, auth) => {
   };
 };
 
+/* ========== PUT Recipe ========== */
+
+export const PUT_RECIPE_REQUEST = 'PUT_RECIPE_REQUEST';
+export const putRecipeRequest = () => ({
+  type: PUT_RECIPE_REQUEST
+});
+
+export const PUT_RECIPE_SUCCESS = 'PUT_RECIPE_SUCCESS';
+export const putRecipeSuccess = recipe => ({
+  type: PUT_RECIPE_SUCCESS,
+  recipe
+});
+
+export const PUT_RECIPE_ERROR = 'PUT_RECIPE_ERROR';
+export const putRecipeError = error => ({
+  type: PUT_RECIPE_ERROR,
+  error
+});
+
+export const putRecipe = (id, recipe, auth) => {
+  return dispatch => {
+    dispatch(postRecipeRequest());
+    fetch(`${API_BASE_URL}/recipes/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${auth}`,
+        'Content-Type': 'application/JSON'
+      },
+      body: JSON.stringify(recipe)
+    })
+      .then(res => res.json())
+      .then(res => {
+        dispatch(postRecipeSuccess(res));
+      })
+      .catch(err => dispatch(postRecipeError(err)));
+  };
+};
+
 /* ========== Delete Recipe ========== */
 
 export const DELETE_RECIPE_REQUEST = 'DELETE_RECIPE_REQUEST';

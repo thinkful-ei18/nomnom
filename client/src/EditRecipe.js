@@ -1,40 +1,37 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { postRecipe } from './actions/recipe_actions';
+import { withRouter, Redirect } from 'react-router';
+import { putRecipe } from './actions/recipe_actions';
 import { jwtFetch } from './actions/login_actions';
 import './CreateRecipe.css';
-// import { required, notEmpty, requiredLength, isNumber } from './validators';
-// import Input from './input';
 
 export class CreateRecipe extends React.Component {
-  componentWillMount() {
-    if (!this.props.jwt) {
-      this.props.history.push('/');
-    }
-  }
   componentDidMount() {
     if (this.props.jwt && this.props.recipes.length < 1) {
       this.props.dispatch(jwtFetch(this.props.jwt));
     }
   }
+
   createRecipe(values) {
     let obj = {
       title: values.title,
       image: values.image,
       ingredients: values.ingredients.split('\n').filter(val => val !== ''),
       directions: values.directions.split('\n').filter(val => val !== ''),
-      prepTime: parseInt(values.prep, 10),
-      cookTime: parseInt(values.cook, 10)
+      prepTime: parseInt(values.prepTime, 10),
+      cookTime: parseInt(values.cookTime, 10)
     };
-    this.props.dispatch(postRecipe(obj, this.props.jwt));
+    this.props.dispatch(putRecipe(this.props.id, obj, this.props.jwt));
   }
   redirectDashboard() {
     this.props.history.push('/dashboard');
   }
 
   render() {
+    if (!this.props.jwt) {
+      return <Redirect to="/signin" />;
+    }
     return (
       <form
         onSubmit={this.props.handleSubmit(values => {
@@ -42,7 +39,7 @@ export class CreateRecipe extends React.Component {
           this.props.history.push('/dashboard');
         })}
       >
-        <h2>Create a new recipe</h2>
+        <h2>Edit Recipe</h2>
         <label>Recipe name</label>
         <Field component="input" type="text" name="title" />
         <label>Image URL</label>
@@ -54,24 +51,31 @@ export class CreateRecipe extends React.Component {
         <span>Seperate directions with newline (shift + enter)</span>
         <Field component="textarea" rows="4" cols="50" name="directions" />
         <label>Prep time</label>
-        <Field component="input" type="number" name="prep" />
+        <Field component="input" type="number" name="prepTime" />
         <label>Cook time</label>
-        <Field component="input" type="number" name="cook" />
+        <Field component="input" type="number" name="cookTime" />
         <input type="submit" />
       </form>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  jwt: window.localStorage.nomnom_token,
-  recipes: state.recipes.recipes
-});
+const mapStateToProps = state => {
+  console.log(state.recipes.recipes[0]);
+  return {
+    jwt: window.localStorage.nomnom_token,
+    recipes: state.recipes.recipes,
+    id: state.editing.recipeID,
+    initialValues: state.recipes.recipes.find(
+      recipe => recipe.id === state.editing.recipeID
+    )
+  };
+};
 
-CreateRecipe = connect(mapStateToProps)(CreateRecipe);
-
-CreateRecipe = withRouter(CreateRecipe);
-
-export default reduxForm({
-  form: 'deliveryForm'
+CreateRecipe = reduxForm({
+  form: 'initializeFromState'
 })(CreateRecipe);
+
+CreateRecipe = withRouter(connect(mapStateToProps)(CreateRecipe));
+
+export default CreateRecipe;

@@ -5,7 +5,7 @@ import {
 } from '../actions/login_actions';
 
 const intialState = {
-  jwt: null,
+  jwt: window.localStorage.nomnom_token,
   loading: false,
   error: null
 };

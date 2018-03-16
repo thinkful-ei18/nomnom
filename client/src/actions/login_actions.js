@@ -38,7 +38,9 @@ export const postLogin = credentials => {
         return res.authToken;
       })
       .then(res => {
-        localStorage.setItem('nomnom_token', res);
+        if (res) {
+          localStorage.setItem('nomnom_token', res);
+        }
       })
       .catch(err => dispatch(postLoginError(err)));
   };

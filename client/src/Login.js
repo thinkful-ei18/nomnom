@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-
+import { withRouter, Redirect } from 'react-router';
 import { postLogin } from './actions/login_actions';
 import './Login.css';
 
@@ -15,6 +15,9 @@ export class Login extends React.Component {
   }
 
   render() {
+    if (this.props.jwt) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <form onSubmit={this.props.handleSubmit(values => this.login(values))}>
         <h2>Login</h2>
@@ -28,8 +31,10 @@ export class Login extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  jwt: state.login.jwt
+  jwt: window.localStorage.nomnom_token
 });
+
+Login = withRouter(Login);
 
 Login = connect(mapStateToProps)(Login);
 

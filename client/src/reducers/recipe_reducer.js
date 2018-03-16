@@ -7,7 +7,10 @@ import {
   POST_RECIPE_REQUEST,
   DELETE_RECIPE_ERROR,
   DELETE_RECIPE_SUCCESS,
-  DELETE_RECIPE_REQUEST
+  DELETE_RECIPE_REQUEST,
+  PUT_RECIPE_ERROR,
+  PUT_RECIPE_SUCCESS,
+  PUT_RECIPE_REQUEST
 } from '../actions/recipe_actions';
 
 const intialState = {
@@ -46,6 +49,22 @@ const recipe = (state = intialState, action) => {
         loading: false
       };
     case POST_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    case PUT_RECIPE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case PUT_RECIPE_SUCCESS:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.recipe],
+        loading: false
+      };
+    case PUT_RECIPE_ERROR:
       return {
         ...state,
         error: action.error

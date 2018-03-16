@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { jwtFetch } from './actions/login_actions';
 import DeleteButton from './DeleteButton';
 import './Dashboard.css';
+import { clickedRecipe } from './actions/edit_actions';
 
 export class Dashboard extends React.Component {
   componentDidMount() {
@@ -12,11 +13,11 @@ export class Dashboard extends React.Component {
       this.props.dispatch(jwtFetch(this.props.jwt));
     }
   }
+
   render() {
     if (!this.props.jwt) {
-      this.props.history.push('/');
+      return <Redirect to="/signin" />;
     }
-
     let displayRecipes = this.props.recipes.map(recipe => (
       <div className="recipe" key={recipe.id}>
         <span className="recipe-title">{recipe.title}</span>
@@ -41,6 +42,12 @@ export class Dashboard extends React.Component {
         </p>
         <Link to={`/recipe/${recipe.id}`}>Direct Link</Link>
         <DeleteButton id={recipe.id} />
+        <Link
+          onClick={() => this.props.dispatch(clickedRecipe(recipe.id))}
+          to={`/recipe/edit/${recipe.id}`}
+        >
+          Edit Link
+        </Link>
       </div>
     ));
 
