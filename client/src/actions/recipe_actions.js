@@ -104,9 +104,9 @@ export const putRecipe = (id, recipe, auth) => {
     })
       .then(res => res.json())
       .then(res => {
-        dispatch(postRecipeSuccess(res));
+        dispatch(putRecipeSuccess(res));
       })
-      .catch(err => dispatch(postRecipeError(err)));
+      .catch(err => dispatch(putRecipeError(err)));
   };
 };
 

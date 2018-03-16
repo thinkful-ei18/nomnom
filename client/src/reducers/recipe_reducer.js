@@ -62,7 +62,7 @@ const recipe = (state = intialState, action) => {
       return {
         ...state,
         recipes: state.recipes.map(
-          recipe => (recipe.id === action.id ? action : recipe)
+          recipe => (recipe.id === action.recipe.id ? action.recipe : recipe)
         ),
         loading: false
       };

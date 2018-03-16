@@ -17,14 +17,25 @@ export class CreateRecipe extends React.Component {
     let obj = {
       title: values.title,
       image: values.image,
-      ingredients: values.ingredients.split('\n').filter(val => val !== ''),
-      directions: values.directions.split('\n').filter(val => val !== ''),
+      ingredients: this.props.touched.fields
+        ? this.props.touched.fields.ingredients
+          ? this.props.touched.fields.ingredients.touched
+            ? values.ingredients.split('\n').filter(val => val !== '')
+            : this.props.initialValues.ingredients
+          : this.props.initialValues.ingredients
+        : this.props.initialValues.ingredients,
+      directions: this.props.touched.fields
+        ? this.props.touched.fields.directions
+          ? this.props.touched.fields.directions.touched
+            ? values.directions.split('\n').filter(val => val !== '')
+            : this.props.initialValues.directions
+          : this.props.initialValues.directions
+        : this.props.initialValues.directions,
       prepTime: parseInt(values.prepTime, 10),
       cookTime: parseInt(values.cookTime, 10),
       id: this.props.id
     };
-    console.log(JSON.stringify(obj));
-    // this.props.dispatch(putRecipe(this.props.id, obj, this.props.jwt));
+    this.props.dispatch(putRecipe(this.props.id, obj, this.props.jwt));
   }
 
   render() {
@@ -38,7 +49,7 @@ export class CreateRecipe extends React.Component {
       <form
         onSubmit={this.props.handleSubmit(values => {
           this.createRecipe(values);
-          // this.props.history.push('/dashboard');
+          this.props.history.push('/dashboard');
         })}
       >
         <h2>Edit Recipe</h2>
@@ -69,7 +80,8 @@ const mapStateToProps = state => {
     id: state.editing.recipeID,
     initialValues: state.recipes.recipes.find(
       recipe => recipe.id === state.editing.recipeID
-    )
+    ),
+    touched: state.form.initializeFromState
   };
 };
 
