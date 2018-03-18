@@ -40,6 +40,7 @@ export const postLogin = credentials => {
       .then(res => {
         if (res) {
           localStorage.setItem('nomnom_token', res);
+          localStorage.setItem('user', credentials.username);
         }
       })
       .catch(err => dispatch(postLoginError(err)));
