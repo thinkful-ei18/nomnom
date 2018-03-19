@@ -20,7 +20,7 @@ router.get('/recipes/user/:username', (req, res, next) => {
     .catch(next);
 });
 
-/* ========== GET/READ A SINGLE RECIPE ========== */
+/* ========== GET a single recipe ========== */
 router.get('/recipes/:id', (req, res, next) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -39,6 +39,29 @@ router.get('/recipes/:id', (req, res, next) => {
         err.status = 404;
         return next(err);
       }
+    })
+    .catch(next);
+});
+
+/* ========== SEARCH RECIPES ========== */
+router.get('/notes', (req, res, next) => {
+  const { searchTerm } = req.query;
+
+  let filter = {};
+  let projection = {};
+  let sort = 'created';
+
+  if (searchTerm) {
+    filter.$text = { $search: searchTerm };
+    projection.score = { $meta: 'textScore' };
+    sort = projection;
+  }
+
+  Recipe.find(filter, projection)
+    .select(['title', 'prepTime', 'cookTime', 'image', 'username'])
+    .sort(sort)
+    .then(notes => {
+      res.json(notes);
     })
     .catch(next);
 });
