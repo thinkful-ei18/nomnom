@@ -51,12 +51,7 @@ export class Dashboard extends React.Component {
       </div>
     ));
 
-    return (
-      <main>
-        <Link to="/create">Create Recipe</Link>
-        {displayRecipes}
-      </main>
-    );
+    return <main>{displayRecipes}</main>;
   }
 }
 

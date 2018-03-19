@@ -11,7 +11,7 @@ export class LoginLogout extends React.Component {
       <button
         onClick={() => {
           this.props.dispatch(userLogout());
-          this.props.history.push('/signin');
+          this.props.history.push('/');
         }}
       >
         Logout
