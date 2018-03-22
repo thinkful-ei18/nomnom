@@ -4,7 +4,9 @@
   "description": "nomnom-server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "cross-env NODE_ENV=test mocha --exit",
+    "cover": "nyc --reporter=lcov --reporter=text-summary npm test"
   },
   "author": "Ali Ahmad",
   "license": "ISC",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "chai-spies": "^1.0.0",
     "cross-env": "^5.1.4",
     "mocha": "^5.0.4",
     "nyc": "^11.4.1"
