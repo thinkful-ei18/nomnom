@@ -44,7 +44,7 @@ router.get('/recipes/:id', (req, res, next) => {
 });
 
 /* ========== SEARCH RECIPES ========== */
-router.get('/notes', (req, res, next) => {
+router.get('/search/recipe', (req, res, next) => {
   const { searchTerm } = req.query;
 
   let filter = {};
@@ -58,7 +58,7 @@ router.get('/notes', (req, res, next) => {
   }
 
   Recipe.find(filter, projection)
-    .select(['title', 'prepTime', 'cookTime', 'image', 'username'])
+    .select()
     .sort(sort)
     .then(notes => {
       res.json(notes);
