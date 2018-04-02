@@ -35,7 +35,21 @@ For the love of food is recipe sharing application. Users can create, search, an
 
 #### Recipes ('/recipes')
 
-* GET
 * POST
 * PUT
 * DELETE
+
+### Public Endpoints
+
+#### Recipes ('/recipes')
+
+* GET
+
+#### Search ('/search/recipes)
+
+* GET
+
+#### Users ('/user')
+
+* GET
+* POST
