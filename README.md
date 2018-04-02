@@ -33,7 +33,7 @@ For the love of food is recipe sharing application. Users can create, search, an
 
 ### Secure Endpoints
 
-Recipes ('/recipes')
+#### Recipes ('/recipes')
 
 * POST
 * PUT
@@ -41,15 +41,15 @@ Recipes ('/recipes')
 
 ### Public Endpoints
 
-Recipes ('/recipes')
+#### Recipes ('/recipes')
 
 * GET
 
-Search ('/search/recipes)
+#### Search ('/search/recipes)
 
 * GET
 
-Users ('/user')
+#### Users ('/user')
 
 * GET
 * POST
