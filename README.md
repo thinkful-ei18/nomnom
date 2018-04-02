@@ -8,3 +8,23 @@ For the love of food is recipe sharing application. Users can create, search, an
 
 ## Tech Stack
 
+### Client
+
+* React
+* React Router
+* Redux
+* Redux Thunk
+* Redux Form
+* Sass
+
+### Server
+
+* BCrypt
+* Express
+* JSON Web Tokens
+* Mongoose
+* Passport
+
+### Database
+
+* MongoDB
