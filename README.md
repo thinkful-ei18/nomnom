@@ -31,7 +31,7 @@ For the love of food is recipe sharing application. Users can create, search, an
 
 ## RESTful Architecture
 
-### Secure end points
+### Secure Endpoints
 
 #### Recipes ('/recipes')
 
