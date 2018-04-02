@@ -59,3 +59,6 @@ The server is built with Express.js and Passport. Routes are found in the __rout
 
 * GET
 * POST
+
+## Screenshot
+![alt text](https://i.imgur.com/vGubXY9.png "Desktop Screenshot")
